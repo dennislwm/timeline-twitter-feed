@@ -10,7 +10,10 @@ class Timeline_Twitter_Feed_Frontend {
 		
 		add_action( 'wp_head', array( $this, 'print_to_head' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles_n_scripts' ), 999 );
+
 		add_action( 'wp_ajax_get_tweet_updates', array( $this, 'ajax_tweets_rerenderer' ) );
+		// Enable tweet updater for non-logged-in users
+		add_action( 'wp_ajax_nopriv_get_tweet_updates', array( $this, 'ajax_tweets_rerenderer' ) );
 	}
 	
 	public function print_to_head() {
@@ -20,13 +23,13 @@ class Timeline_Twitter_Feed_Frontend {
 	}
 
 	public function print_twitter_js() {
-		if ( 'on' === $this->advanced_options[Timeline_Twitter_Feed_Options::TWITTER_JS] ) {
+		if ( isset( $this->advanced_options[Timeline_Twitter_Feed_Options::TWITTER_JS] ) && ( 'on' === $this->advanced_options[Timeline_Twitter_Feed_Options::TWITTER_JS] ) ) {
 			echo '<script type="text/javascript">!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>';
 		}
 	}
 
 	public function print_update_interval_js() {
-		if ( 'on' === $this->other_options[Timeline_Twitter_Feed_Options::DO_AJAX_UPDATES] && $this->other_options[Timeline_Twitter_Feed_Options::CACHE_EXPIRE] > 59 ) { // should be larger than 59 seconds (failsave)
+		if ( isset( $this->other_options[Timeline_Twitter_Feed_Options::DO_AJAX_UPDATES] ) && ( 'on' === $this->other_options[Timeline_Twitter_Feed_Options::DO_AJAX_UPDATES] ) && $this->other_options[Timeline_Twitter_Feed_Options::CACHE_EXPIRE] > 59 ) { // should be larger than 59 seconds (failsave)
 			printf(
 				'<script type="text/javascript">var ajaxurl = "%s"; var feedLoadingText = "%s"; var feedInterval = %s;</script>',
 				esc_url( admin_url( 'admin-ajax.php' ) ),
@@ -37,7 +40,7 @@ class Timeline_Twitter_Feed_Frontend {
 	}
 
 	public function print_custom_css() {
-		if ( $this->other_options[Timeline_Twitter_Feed_Options::CUSTOM_CSS] ) {
+		if ( isset( $this->other_options[Timeline_Twitter_Feed_Options::CUSTOM_CSS] ) && ( $this->other_options[Timeline_Twitter_Feed_Options::CUSTOM_CSS] ) ) {
 			$css = wp_kses( $this->other_options[Timeline_Twitter_Feed_Options::CUSTOM_CSS], 'none' );
 			$css = str_replace( '&gt;', '>', $css );
 
@@ -46,7 +49,7 @@ class Timeline_Twitter_Feed_Frontend {
 	}
 
 	public function enqueue_styles_n_scripts() {
-		if ( 'on' === $this->advanced_options[Timeline_Twitter_Feed_Options::USE_CSS] ) {
+		if ( isset( $this->advanced_options[Timeline_Twitter_Feed_Options::USE_CSS] ) && ( 'on' === $this->advanced_options[Timeline_Twitter_Feed_Options::USE_CSS] ) ) {
 			wp_enqueue_style(
 				'timeline-twitter-feed-frontend',
 				esc_url( plugins_url( 'res/css/timeline-twitter-feed-frontend.css', dirname( __FILE__ ) ) ),
@@ -55,7 +58,7 @@ class Timeline_Twitter_Feed_Frontend {
 			);
 		}
 		
-		if ( 'on' === $this->other_options[Timeline_Twitter_Feed_Options::DO_AJAX_UPDATES] ) {
+		if ( isset( $this->other_options[Timeline_Twitter_Feed_Options::DO_AJAX_UPDATES] ) && ( 'on' === $this->other_options[Timeline_Twitter_Feed_Options::DO_AJAX_UPDATES] ) ) {
 			wp_enqueue_script(
 				'timeline-twitter-feed-js',
 				esc_url( plugins_url( 'res/js/timeline-twitter-feed.js', dirname( __FILE__ ) ) ),
