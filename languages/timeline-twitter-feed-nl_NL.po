@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Timeline Twitter Feed\n"
-"POT-Creation-Date: 2014-08-14 13:09+0100\n"
-"PO-Revision-Date: 2014-08-14 13:09+0100\n"
-"Last-Translator: Ezra Verheijen <ezra.verheijen@trimm.nl>\n"
+"POT-Creation-Date: 2014-08-14 16:30+0100\n"
+"PO-Revision-Date: 2014-08-14 16:31+0100\n"
+"Last-Translator: Ezra Verheijen\n"
 "Language-Team: \n"
 "Language: nl_NL\n"
 "MIME-Version: 1.0\n"
@@ -349,11 +349,11 @@ msgstr "Alle tweets zijn goedgekeurd"
 msgid "Approve"
 msgstr "Goedkeuren"
 
-#: ../includes/class-timeline-twitter-feed-frontend.php:33
+#: ../includes/class-timeline-twitter-feed-frontend.php:36
 msgid "...reloading..."
 msgstr "...herladen..."
 
-#: ../includes/class-timeline-twitter-feed-shortcode.php:268
+#: ../includes/class-timeline-twitter-feed-shortcode.php:266
 msgid ""
 "Twitter is unresponsive, user doesn't exist or Feed API and/or username "
 "settings are missing."
@@ -361,15 +361,15 @@ msgstr ""
 "Twitter reageert niet, de gebruiker bestaat niet of de feed API instellingen "
 "en/of wachtwoord zijn niet ingevoerd."
 
-#: ../includes/class-timeline-twitter-feed-shortcode.php:271
+#: ../includes/class-timeline-twitter-feed-shortcode.php:269
 msgid "Click here"
 msgstr "Klik hier"
 
-#: ../includes/class-timeline-twitter-feed-shortcode.php:272
+#: ../includes/class-timeline-twitter-feed-shortcode.php:270
 msgid "to configure and read the instructions."
 msgstr "om de plugin te configureren en de instructies te lezen."
 
-#: ../includes/class-timeline-twitter-feed-shortcode.php:277
+#: ../includes/class-timeline-twitter-feed-shortcode.php:275
 msgid "Unable to show tweets right now..."
 msgstr "Er kunnen momenteel geen tweets worden getoond..."
 
@@ -389,19 +389,13 @@ msgstr ""
 msgid "Hashtags:"
 msgstr ""
 
-#: ../includes/class-timeline-twitter-feed-widget.php:56
-msgid "Here are some examples for the hashtags"
-msgstr "Hier is een voorbeeld voor het gebruiken van de hashtag optie"
+#: ../includes/class-timeline-twitter-feed-widget.php:57
+msgid "Seperate multiple hashtags with commas"
+msgstr "Separeer meerdere hashtags met komma's"
 
-#: ../includes/class-timeline-twitter-feed-widget.php:61
-msgid ""
-"You can use just about any term you want and decide how many terms you want "
-"to use. Make sure every term starts with \"#\" and seperate the terms with "
-"\"OR\"."
-msgstr ""
-"Je kunt iedere term gebruiken die je wilt en zelf bepalen hoeveel je er wilt "
-"gebruiken. Zorg ervoor dat iedere term begint met \"#\" en dat de termen "
-"worden gescheiden door \"OR\"."
+#: ../includes/class-timeline-twitter-feed-widget.php:58
+msgid "For example"
+msgstr "Bijvoorbeeld"
 
 #: ../lib/class-twitterwp.php:177
 msgid "ERROR: You need to provide a user."
@@ -418,6 +412,18 @@ msgstr ""
 #: ../timeline-twitter-feed.php:125
 msgid "Settings"
 msgstr ""
+
+#~ msgid "Here are some examples for the hashtags"
+#~ msgstr "Hier is een voorbeeld voor het gebruiken van de hashtag optie"
+
+#~ msgid ""
+#~ "You can use just about any term you want and decide how many terms you "
+#~ "want to use. Make sure every term starts with \"#\" and seperate the "
+#~ "terms with \"OR\"."
+#~ msgstr ""
+#~ "Je kunt iedere term gebruiken die je wilt en zelf bepalen hoeveel je er "
+#~ "wilt gebruiken. Zorg ervoor dat iedere term begint met \"#\" en dat de "
+#~ "termen worden gescheiden door \"OR\"."
 
 #~ msgid "(about"
 #~ msgstr "(ongeveer"

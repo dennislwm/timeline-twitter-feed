@@ -3,7 +3,7 @@
  * Plugin Name: Timeline Twitter Feed
  * Plugin URI:  http://wordpress.org/plugins/timeline-twitter-feed/
  * Description: Timeline Twitter Feed let's you output your timeline feed and multiple hashtags into your WordPress site as flat HTML.
- * Version:     0.9
+ * Version:     0.9.2
  * Author: 		Ezra Verheijen
  * Author URI: 	http://profiles.wordpress.org/ezraverheijen/
  * License:     GPL v3
@@ -41,7 +41,7 @@ if ( ! class_exists( 'Timeline_Twitter_Feed' ) ) {
 	
 	class Timeline_Twitter_Feed {
 		const PLUGIN_NAME    = 'Timeline Twitter Feed';
-		const PLUGIN_VERSION = '0.9';
+		const PLUGIN_VERSION = '0.9.2';
 		const TEXTDOMAIN     = 'timeline-twitter-feed';
 
 		private $other_options = array();

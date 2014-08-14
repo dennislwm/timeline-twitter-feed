@@ -115,8 +115,6 @@ class Timeline_Twitter_Feed_Shortcode {
 	}
 	
 	public function generate_tweet( $tweet ) {
-		$text = $tweet->text;
-
 		$text = esc_html( $text ); // prepare tweet for use in HTML
 
 		$output = '<div class="ttf-tweet">';
@@ -144,7 +142,7 @@ class Timeline_Twitter_Feed_Shortcode {
 		}
 		
 		if ( 'on' === $this->advanced_options[Timeline_Twitter_Feed_Options::HASH_LINKS] ) {
-			$text = preg_replace( '(#([a-zA-Z0-9\_]+))', '<a href="http://twitter.com/search?q=%23\\1" target="_blank" rel="nofollow">\\0</a>', $text );
+			$text = preg_replace( '([^&]#([a-zA-Z0-9\_]+))', '<a href="http://twitter.com/search?q=%23\\1" target="_blank" rel="nofollow">\\0</a>', $text );
 		}
 
 		$output .= $text . '</div></div>';

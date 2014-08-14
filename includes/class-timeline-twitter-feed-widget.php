@@ -53,12 +53,10 @@ class Timeline_Twitter_Feed_Widget extends WP_Widget {
 			<input class="widefat" id="<?php echo $this->get_field_id( 'terms' ); ?>" name="<?php echo $this->get_field_name( 'terms' ); ?>" type="text" value="<?php echo esc_attr( $terms ); ?>">
 		</p>
 		<p class="description">
-			<?php _e( 'Here are some examples for the hashtags', Timeline_TWitter_Feed::TEXTDOMAIN ) ?>:<br />
-			<em>#WP<br />
-			#WP OR #WordPress<br />
-			#WP OR #WordPress OR #Blog OR #CMS<br />
-			<br />
-			<?php _e( 'You can use just about any term you want and decide how many terms you want to use. Make sure every term starts with "#" and seperate the terms with "OR".', Timeline_TWitter_Feed::TEXTDOMAIN ); ?>
+			<em>
+				<?php _e( 'Seperate multiple hashtags with commas', Timeline_TWitter_Feed::TEXTDOMAIN ) ?>.<br />
+				<?php _e( 'For example', Timeline_TWitter_Feed::TEXTDOMAIN ); ?>: WP, WordPress, CMS, blog
+			</em>
 		</p>
 		<?php 
 	}
