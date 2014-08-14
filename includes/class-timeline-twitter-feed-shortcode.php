@@ -262,7 +262,7 @@ class Timeline_Twitter_Feed_Shortcode {
 	public function print_error_message() {
 		if ( current_user_can( 'manage_options' ) ) {
 			$error = sprintf(
-				'<p class="ttf-red">%s <a href="%soptions-general.php?page=%s">%s</a> %s</p>',
+				'<p class="ttf-red">%s <a href="%soptions-general.php?page=%s"><span style="text-decoration: underline;">%s</span></a> %s</p>',
 				__( "Twitter is unresponsive, user doesn't exist or Feed API and/or username settings are missing.", Timeline_Twitter_Feed::TEXTDOMAIN ),
 				esc_url( get_admin_url() ),
 				Timeline_Twitter_Feed::TEXTDOMAIN,
