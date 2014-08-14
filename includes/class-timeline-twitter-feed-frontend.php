@@ -67,10 +67,6 @@ class Timeline_Twitter_Feed_Frontend {
 	}
 	
 	public function ajax_tweets_rerenderer() {
-		if ( 'off' === $this->other_options[Timeline_Twitter_Feed_Options::DO_AJAX_UPDATES] ) {
-			return null;
-		}
-		
 		$shortcode = stripslashes( $_POST['shortcode'] );
 		$shortcode = str_replace( array( '{', '}' ), array( '[', ']' ), $shortcode );
 		$id        = sanitize_text_field( $_POST['id'] );

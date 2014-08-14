@@ -262,7 +262,7 @@ class Timeline_Twitter_Feed_Backend {
                 array(
                     'name'    => Timeline_Twitter_Feed_Options::DO_AJAX_UPDATES,
                     'label'   => __( 'Do AJAX updates?', Timeline_Twitter_Feed::TEXTDOMAIN ),
-                    'desc'    => '',
+                    'desc'    => __( 'Especially useful when using a static page caching plugin like W3 Total Cache', Timeline_Twitter_Feed::TEXTDOMAIN ),
                     'type'    => 'checkbox',
                 ),
                 array(

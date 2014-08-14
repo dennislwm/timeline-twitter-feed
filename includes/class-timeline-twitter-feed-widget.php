@@ -16,11 +16,26 @@ class Timeline_Twitter_Feed_Widget extends WP_Widget {
 			echo $args['before_title'] . $instance['title'] . $args['after_title'];
 		}
 		echo '<div class="twitter-feed-widget">';
+		$shortcode = '[timeline-twitter-feed';
 		if ( $instance['terms'] ) {
-			echo do_shortcode( '[timeline-twitter-feed terms="' . $instance['terms'] . '"]' );
-		} else {
-			echo do_shortcode( '[timeline-twitter-feed]' );
+			$shortcode .= ' terms="';
+			// backwards compatibility for user input from plugin version 0.9
+			if ( false !== strpos( $instance['terms'], '#' ) ) {
+				$shortcode .= esc_attr( trim( $instance['terms'] ) );
+			} else {
+				$hashtags = explode( ',', $instance['terms'] );
+				foreach ( $hashtags as $hashtag ) {
+					$hashtag = trim( $hashtag );
+					if ( $hashtag ) {
+						$shortcode .= '#' . esc_attr( $hashtag ) . ' OR ';
+					}
+				}
+				$shortcode = rtrim( $shortcode, ' OR ' );
+			}
+			$shortcode .= '"';
 		}
+		$shortcode .= ']';
+		echo do_shortcode( $shortcode );
 		echo '</div>';
 		echo $args['after_widget'];
 	}
