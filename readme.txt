@@ -2,9 +2,9 @@
 Contributors: ezraverheijen
 Donate link: http://bit.ly/1eC8iDE
 Tags: twitter, feed, tweet, tweets, twitter feed, twitter widget, twitter sidebar, social, social media
-Requires at least: 3.1
+Requires at least: 3.5
 Tested up to: 3.9.2
-Stable tag: 0.9.2
+Stable tag: 0.9.1
 License: GPL v3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -37,7 +37,15 @@ If you don’t report it, I can’t fix it!
 
 == Changelog ==
 
-= 0.9.2 =
+= 0.9.1 =
+* Bugfixes:
+	* Fixed AJAX updates to work with non-logged-in users
+	* Fixed a bug where characters like `&#039;` would be treated as hashtags
+
+* Enhancements:
+	* Updated widget to have easier settings
+	* Added caching for multiple feeds on one website
+	* Some small code improvements
 
 = 0.9 =
 * Beta release

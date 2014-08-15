@@ -3,7 +3,7 @@
  * Plugin Name: Timeline Twitter Feed
  * Plugin URI:  http://wordpress.org/plugins/timeline-twitter-feed/
  * Description: Timeline Twitter Feed let's you output your timeline feed and multiple hashtags into your WordPress site as flat HTML.
- * Version:     0.9.2
+ * Version:     0.9.1
  * Author: 		Ezra Verheijen
  * Author URI: 	http://profiles.wordpress.org/ezraverheijen/
  * License:     GPL v3
@@ -41,7 +41,7 @@ if ( ! class_exists( 'Timeline_Twitter_Feed' ) ) {
 	
 	class Timeline_Twitter_Feed {
 		const PLUGIN_NAME    = 'Timeline Twitter Feed';
-		const PLUGIN_VERSION = '0.9.2';
+		const PLUGIN_VERSION = '0.9.1';
 		const TEXTDOMAIN     = 'timeline-twitter-feed';
 
 		private $other_options = array();
@@ -51,7 +51,7 @@ if ( ! class_exists( 'Timeline_Twitter_Feed' ) ) {
 
 			add_action( 'widgets_init', array( $this, 'register_twitter_feed_widget' ) );
 			add_action( 'plugins_loaded', array( $this, 'load_plugin_translation' ) );
-
+			
 			new Timeline_Twitter_Feed_Backend();
 			new Timeline_Twitter_Feed_Frontend();
 			new Timeline_Twitter_Feed_Shortcode();
@@ -104,7 +104,7 @@ if ( ! class_exists( 'Timeline_Twitter_Feed' ) ) {
 
 			add_option( Timeline_Twitter_Feed_Options::OTHER_OPTIONS, array(
 				Timeline_Twitter_Feed_Options::CACHE_EXPIRE    => '300',
-				Timeline_Twitter_Feed_Options::DO_AJAX_UPDATES => 'on',
+				Timeline_Twitter_Feed_Options::DO_AJAX_UPDATES => 'off',
 				Timeline_Twitter_Feed_Options::KEYWORD_FILTER  => '',
 				Timeline_Twitter_Feed_Options::APPROVAL_FIRST  => 'off',
 				Timeline_Twitter_Feed_Options::CUSTOM_CSS      => '',
@@ -119,6 +119,7 @@ if ( ! class_exists( 'Timeline_Twitter_Feed' ) ) {
 			) );
 
 			add_option( Timeline_Twitter_Feed_Options::APPROVED, array() );
+			add_option( Timeline_Twitter_Feed_Options::HASH_KEYS, array() );
 		}
 
 		public function add_plugin_settings_link( $links ) {
@@ -139,7 +140,7 @@ if ( ! class_exists( 'Timeline_Twitter_Feed' ) ) {
 				Timeline_Twitter_Feed_Options::HELP,
 				Timeline_Twitter_Feed_Options::APPROVED,
 				Timeline_Twitter_Feed_Options::OUTPUT,
-				Timeline_Twitter_Feed_Options::HASH_KEY,
+				Timeline_Twitter_Feed_Options::HASH_KEYS,
 			) );
 		}
 	}

@@ -9,7 +9,7 @@ class Timeline_Twitter_Feed_Options {
 	const HELP               = 'ttf_help';
 	CONST APPROVED           = 'ttf_feed_approval';
 	const OUTPUT             = 'ttf_feed_output';
-	const HASH_KEY           = 'ttf_hash_key';
+	const HASH_KEYS          = 'ttf_hash_keys';
 
 	// Basic options
 	const CONSUMER_KEY       = 'consumer_key';

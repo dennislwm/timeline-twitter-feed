@@ -36,10 +36,21 @@ class Timeline_Twitter_Feed_Shortcode {
 			$atts = array();
 		}
 
+		$hash_keys = get_option( Timeline_Twitter_Feed_Options::HASH_KEYS, array() );
+
 		// Make a unique hashkey for this query
 		$hash_key = md5( 'twitterfeed-' . implode( '-', $atts ) );
 
-		update_option( Timeline_Twitter_Feed_Options::HASH_KEY, $hash_key );
+		if ( ! in_array( $hash_key, $hash_keys ) ) {
+			$hash_keys[] = $hash_key;
+		}
+		
+		/**
+		 * Update database with all hash keys for easy cache flushing.
+		 *
+		 * @see Timeline_Twitter_Feed_Backend::delete_cached_feeds()
+		 */
+		update_option( Timeline_Twitter_Feed_Options::HASH_KEYS, $hash_keys );
 
 		// Delete hash key (for dev and debug only!)
 		// delete_transient( $hash_key );
@@ -115,7 +126,7 @@ class Timeline_Twitter_Feed_Shortcode {
 	}
 	
 	public function generate_tweet( $tweet ) {
-		$text = esc_html( $text ); // prepare tweet for use in HTML
+		$text = esc_html( $tweet->text ); // prepare tweet for use in HTML
 
 		$output = '<div class="ttf-tweet">';
 

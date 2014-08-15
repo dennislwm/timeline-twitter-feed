@@ -13,7 +13,7 @@ class Timeline_Twitter_Feed_Backend {
 
         add_action( 'admin_init', array( $this, 'init_plugin_settings' ) );
         add_action( 'admin_menu', array( $this, 'add_plugin_options_page' ) );
-        add_action( 'admin_menu', array( $this, 'delete_cached_feed' ) );
+        add_action( 'admin_menu', array( $this, 'delete_cached_feeds' ) );
         add_action( 'admin_head', array( $this, 'print_wp_override_css' ) );
         add_action( 'admin_notices', array( $this, 'print_admin_notice' ) );
     }
@@ -37,10 +37,12 @@ class Timeline_Twitter_Feed_Backend {
         );
     }
 
-    public function delete_cached_feed() {
+    public function delete_cached_feeds() {
         if ( isset( $_GET['page'] ) && Timeline_Twitter_Feed::TEXTDOMAIN === $_GET['page'] ) {
             if ( isset( $_GET['settings-updated'] ) && 'true' === $_GET['settings-updated'] ) {
-                delete_transient( get_option( Timeline_Twitter_Feed_Options::HASH_KEY ) );
+                foreach ( get_option( Timeline_Twitter_Feed_Options::HASH_KEYS ) as $hash_key ) {
+                    delete_transient( $hash_key );
+                }
             }
         }
     }
