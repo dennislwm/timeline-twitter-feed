@@ -3,7 +3,7 @@ Contributors: ezraverheijen
 Donate link: http://bit.ly/1eC8iDE
 Tags: twitter, feed, tweet, tweets, twitter feed, twitter widget, twitter sidebar, social, social media
 Requires at least: 3.5
-Tested up to: 3.9.2
+Tested up to: 4.0
 Stable tag: 0.9.1
 License: GPL v3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
