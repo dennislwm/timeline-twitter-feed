@@ -20,15 +20,16 @@ class Timeline_Twitter_Feed_Widget extends WP_Widget {
 		if ( $instance['terms'] ) {
 			$shortcode .= ' terms="';
 			// backwards compatibility for user input from plugin version 0.9
-			if ( false !== strpos( $instance['terms'], '#' ) ) {
+			if ( false !== strpos( $instance['terms'], 'OR' ) ) {
 				$shortcode .= esc_attr( trim( $instance['terms'] ) );
 			} else {
-				$hashtags = explode( ',', $instance['terms'] );
+				$hashtags = Timeline_Twitter_Feed_Functions::str_split( $instance['terms'] );
 				foreach ( $hashtags as $hashtag ) {
-					$hashtag = trim( $hashtag );
-					if ( $hashtag ) {
-						$shortcode .= '#' . esc_attr( $hashtag ) . ' OR ';
+					$hashtag = esc_attr( $hashtag );
+					if ( false === strpos( $hashtag, '#' ) ) {
+						$hashtag = '#' . $hashtag;
 					}
+					$shortcode .= $hashtag  . ' OR ';
 				}
 				$shortcode = rtrim( $shortcode, ' OR ' );
 			}
@@ -55,7 +56,7 @@ class Timeline_Twitter_Feed_Widget extends WP_Widget {
 		<p class="description">
 			<em>
 				<?php _e( 'Seperate multiple hashtags with commas', Timeline_TWitter_Feed::TEXTDOMAIN ) ?>.<br />
-				<?php _e( 'For example', Timeline_TWitter_Feed::TEXTDOMAIN ); ?>: WP, WordPress, CMS, blog
+				<?php _e( 'For example', Timeline_TWitter_Feed::TEXTDOMAIN ); ?>: #WP, #WordPress, #CMS, #blog
 			</em>
 		</p>
 		<?php 

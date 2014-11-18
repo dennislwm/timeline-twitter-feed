@@ -112,13 +112,13 @@ class Timeline_Twitter_Feed_Backend {
                 ),
                 array(
                     'name'    => Timeline_Twitter_Feed_Options::USERNAME,
-                    'label'   => __( 'Twitter Username', Timeline_Twitter_Feed::TEXTDOMAIN ) . ' <span class="red">*</span>',
+                    'label'   => __( 'Twitter Username', Timeline_Twitter_Feed::TEXTDOMAIN ),
                     'desc'    => __( 'fill in your Twitter username without the @', Timeline_Twitter_Feed::TEXTDOMAIN ),
                     'type'    => 'text',
                 ),
                 array(
                     'name'    => Timeline_Twitter_Feed_Options::NUM_TWEETS,
-                    'label'   => __( 'Number of Username Tweets to show', Timeline_Twitter_Feed::TEXTDOMAIN ),
+                    'label'   => __( 'Number of Tweets to show', Timeline_Twitter_Feed::TEXTDOMAIN ),
                     'desc'    => '',
                     'type'    => 'select',
                     'options' => array(
@@ -163,6 +163,12 @@ class Timeline_Twitter_Feed_Backend {
                         '19'  => '19',
                         '20'  => '20',
                     ),
+                ),
+                array(
+                    'name'    => Timeline_Twitter_Feed_Options::ONLY_HASHTAGS,
+                    'label'   => __( 'Only show tweets from hashtags', Timeline_Twitter_Feed::TEXTDOMAIN ),
+                    'desc'    => __( 'enable this to disable showing tweets from (your) username(s)', Timeline_Twitter_Feed::TEXTDOMAIN ),
+                    'type'    => 'checkbox',
                 ),
                 array(
                     'name'    => Timeline_Twitter_Feed_Options::TWITTER_JS,
@@ -351,9 +357,8 @@ class Timeline_Twitter_Feed_Backend {
 
     public function print_wp_override_css() {
         global $pagenow;
-
         if ( 'options-general.php' === $pagenow && Timeline_Twitter_Feed::TEXTDOMAIN == $_GET['page'] ) {
-            echo '<style>label { font-size: 13px; font-style: italic; color: #666; } .form-table td { padding: 15px 10px; } input.regular-text { width: 30em; } .red { color: red; } #ttf_help p.submit { display: none; }</style>';
+            echo '<style>label{font-size:13px;font-style:italic;color:#666}.form-table td{padding:15px 10px}input.regular-text{width:30em}.red{color:red}#ttf_help p.submit{display:none}</style>';
         }
     }
 
@@ -362,14 +367,13 @@ class Timeline_Twitter_Feed_Backend {
             $this->basic_options[Timeline_Twitter_Feed_Options::CONSUMER_KEY],
             $this->basic_options[Timeline_Twitter_Feed_Options::CONSUMER_SECRET],
             $this->basic_options[Timeline_Twitter_Feed_Options::ACCESS_TOKEN],
-            $this->basic_options[Timeline_Twitter_Feed_Options::ACCESS_SECRET],
-            $this->basic_options[Timeline_Twitter_Feed_Options::USERNAME],
+            $this->basic_options[Timeline_Twitter_Feed_Options::ACCESS_SECRET]
         );
 
         if ( false !== array_search( '', $basic_options ) ) {
             printf(
                 '<div class="error"><p>%s <a href="options-general.php?page=%s#%s"><input type="submit" value="%s" class="button-secondary" style="vertical-align: baseline;" /></a></p></div>',
-                __( 'You need to enter your Twitter API settings and username for the Timeline Twitter Feed plugin to work.', Timeline_Twitter_Feed::TEXTDOMAIN ),
+                __( 'You need to enter your Twitter API settings for the Timeline Twitter Feed plugin to work.', Timeline_Twitter_Feed::TEXTDOMAIN ),
                 Timeline_Twitter_Feed::TEXTDOMAIN,
                 Timeline_Twitter_Feed_Options::BASIC_OPTIONS,
                 __( 'Configure', Timeline_Twitter_Feed::TEXTDOMAIN )

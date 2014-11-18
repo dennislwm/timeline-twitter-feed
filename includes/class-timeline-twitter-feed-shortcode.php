@@ -23,8 +23,9 @@ class Timeline_Twitter_Feed_Shortcode {
 		}
 		
 		add_shortcode( 'timeline-twitter-feed', array( $this, 'generate_tweets' ) );
-		
-		add_filter( 'widget_text', 'do_shortcode' ); // add shortcode support for widgets
+        
+        // add shortcode support for widgets
+		add_filter( 'widget_text', 'do_shortcode' );
 	}
 
 	public function generate_tweets( $atts, $content, $tag ) {
@@ -72,12 +73,19 @@ class Timeline_Twitter_Feed_Shortcode {
 			$shortcode .= '}';
 			
 			$output = sprintf( '<div class="timeline-twitter-feed" id="%s" data-shortcode="%s">', esc_attr( $hash_key ), $shortcode );
-			
-			$tweets = $twitter_app->get_tweets( $this->basic_options[Timeline_Twitter_Feed_Options::USERNAME], $this->basic_options[Timeline_Twitter_Feed_Options::NUM_TWEETS] );
+
+			$num_tweets         = (int) $this->basic_options[Timeline_Twitter_Feed_Options::NUM_TWEETS];
+			$num_hashtag_tweets = $num_tweets;
+
+			$tweets = array();
+			if ( 'on' !== $this->advanced_options[Timeline_Twitter_Feed_Options::ONLY_HASHTAGS] ) {
+				$tweets = $twitter_app->get_tweets( $this->basic_options[Timeline_Twitter_Feed_Options::USERNAME], $num_tweets );
+				$num_hashtag_tweets = (int) $this->advanced_options[Timeline_Twitter_Feed_Options::NUM_HASHTAG_TWEETS];
+			}
 
 			if ( isset( $atts['terms'] ) ) {
 				$terms         = str_replace( '#', '%23', $atts['terms'] );
-				$search_tweets = $twitter_app->get_search_results( $terms, $this->advanced_options[Timeline_Twitter_Feed_Options::NUM_HASHTAG_TWEETS] );
+				$search_tweets = $twitter_app->get_search_results( $terms, $num_hashtag_tweets );
 				$statuses      = $search_tweets->statuses;
 				
 				if ( $statuses ) {
@@ -106,7 +114,7 @@ class Timeline_Twitter_Feed_Shortcode {
 
 			}
 
-			foreach ( array_slice( $tweets, 0, $this->basic_options[Timeline_Twitter_Feed_Options::NUM_TWEETS] ) as $tweet ) {
+			foreach ( array_slice( $tweets, 0, $num_tweets ) as $tweet ) {
 				$output .= $this->generate_tweet( $tweet );
 			}
 
@@ -153,7 +161,8 @@ class Timeline_Twitter_Feed_Shortcode {
 		}
 		
 		if ( 'on' === $this->advanced_options[Timeline_Twitter_Feed_Options::HASH_LINKS] ) {
-			$text = preg_replace( '([^&]#([a-zA-Z0-9\_]+))', '<a href="http://twitter.com/search?q=%23\\1" target="_blank" rel="nofollow">\\0</a>', $text );
+			// @props aaronrossanocomau for fixing the regex
+			$text = preg_replace( '/(?<!&)#(\w+)/i', '<a href="http://twitter.com/search?q=%23\\1" target="_blank" rel="nofollow">\\0</a>', $text );
 		}
 
 		$output .= $text . '</div></div>';
@@ -259,8 +268,7 @@ class Timeline_Twitter_Feed_Shortcode {
             $this->basic_options[Timeline_Twitter_Feed_Options::CONSUMER_KEY],
             $this->basic_options[Timeline_Twitter_Feed_Options::CONSUMER_SECRET],
             $this->basic_options[Timeline_Twitter_Feed_Options::ACCESS_TOKEN],
-            $this->basic_options[Timeline_Twitter_Feed_Options::ACCESS_SECRET],
-            $this->basic_options[Timeline_Twitter_Feed_Options::USERNAME],
+            $this->basic_options[Timeline_Twitter_Feed_Options::ACCESS_SECRET]
         );
 
         if ( false !== array_search( '', $basic_options ) ) {
@@ -309,8 +317,7 @@ class Timeline_Twitter_Feed_Shortcode {
 	public function has_blocked_words( $tweet ) {
 		$tweet = $tweet->user->screen_name . ' ' . $tweet->text;
 		
-		$keywords = explode( ',', $this->other_options[Timeline_Twitter_Feed_Options::KEYWORD_FILTER] );
-		$keywords = array_map( 'trim', $keywords );
+		$keywords = Timeline_Twitter_Feed_Functions::str_split( $this->other_options[Timeline_Twitter_Feed_Options::KEYWORD_FILTER] );
 		
 		$result = count( array_intersect( $keywords, explode( ' ', $tweet ) ) );
 		

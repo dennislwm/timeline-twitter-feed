@@ -18,9 +18,10 @@ class Timeline_Twitter_Feed_Options {
 	const ACCESS_SECRET      = 'access_secret';
 	const USERNAME           = 'username';
 	const NUM_TWEETS         = 'num_tweets';
-	const NUM_HASHTAG_TWEETS = 'num_hashtag_tweets';
 
 	// Advanced options
+	const NUM_HASHTAG_TWEETS = 'num_hashtag_tweets';
+	const ONLY_HASHTAGS      = 'only_hashtags';
 	const TWITTER_JS         = 'twitter_js';
 	const PROFILE_IMG        = 'profile_img';
 	const HTTPS_IMG          = 'https_img';
