@@ -3,8 +3,8 @@ Contributors: ezraverheijen
 Donate link: http://bit.ly/1eC8iDE
 Tags: twitter, feed, tweet, tweets, twitter feed, twitter widget, twitter sidebar, social, social media
 Requires at least: 3.5
-Tested up to: 4.0
-Stable tag: 1.0
+Tested up to: 4.1
+Stable tag: 1.1
 License: GPL v3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -36,6 +36,11 @@ If you don’t report it, I can’t fix it!
 1. Approve hashtags tweets first before showing them on your site
 
 == Changelog ==
+
+= 1.1 =
+* Bugfixes:
+	* Fixed bug with follow button not showing up
+	* Plugin will now try to show enough items in the feed if the option to show only hashtags has been selected
 
 = 1.0 =
 * Final version

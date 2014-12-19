@@ -74,12 +74,13 @@ class Timeline_Twitter_Feed_Shortcode {
 			
 			$output = sprintf( '<div class="timeline-twitter-feed" id="%s" data-shortcode="%s">', esc_attr( $hash_key ), $shortcode );
 
-			$num_tweets         = (int) $this->basic_options[Timeline_Twitter_Feed_Options::NUM_TWEETS];
-			$num_hashtag_tweets = $num_tweets;
+			$num_tweets = (int) $this->basic_options[Timeline_Twitter_Feed_Options::NUM_TWEETS];
 
 			$tweets = array();
 			if ( 'on' !== $this->advanced_options[Timeline_Twitter_Feed_Options::ONLY_HASHTAGS] ) {
 				$tweets = $twitter_app->get_tweets( $this->basic_options[Timeline_Twitter_Feed_Options::USERNAME], $num_tweets );
+				$num_hashtag_tweets = $num_tweets;
+			} else {
 				$num_hashtag_tweets = (int) $this->advanced_options[Timeline_Twitter_Feed_Options::NUM_HASHTAG_TWEETS];
 			}
 
@@ -121,7 +122,7 @@ class Timeline_Twitter_Feed_Shortcode {
 			$output .= '</div>';
 			
 			if ( 'on' === $this->advanced_options[Timeline_Twitter_Feed_Options::FOLLOW_BUTTON] ) {
-				$output .= $this->get_follow_button( $tweet );
+				$output .= $this->get_follow_button();
 			}
 			
 			// Cache results
