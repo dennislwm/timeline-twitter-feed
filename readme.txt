@@ -47,7 +47,7 @@ If you don’t report it, I can’t fix it!
 
 * Bugfixes:
 	* Fixed AJAX updates to work with non-logged-in users
-	* Fixed a bug where characters like `&#039;` would be treated as hashtags
+	* Fixed a bug where characters like &amp;#039; would be treated as hashtags
 
 * Enhancements:
 	* Updated widget to have easier settings
