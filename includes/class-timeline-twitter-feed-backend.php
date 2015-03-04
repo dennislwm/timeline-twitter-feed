@@ -1,6 +1,6 @@
 <?php
 
-if ( !class_exists( 'WeDevs_Settings_API' ) ) {
+if ( ! class_exists( 'WeDevs_Settings_API' ) ) {
 	require dirname( dirname( __FILE__ ) ) . '/lib/class-webdevs-settings-api.php';
 }
 
@@ -343,7 +343,8 @@ class Timeline_Twitter_Feed_Backend {
 			Timeline_Twitter_Feed::PLUGIN_NAME,
 			Timeline_Twitter_Feed::PLUGIN_NAME,
 			'manage_options',
-			Timeline_Twitter_Feed::TEXTDOMAIN, array( $this, 'print_plugin_settings_page' ) );
+			Timeline_Twitter_Feed::TEXTDOMAIN, array( $this, 'print_plugin_settings_page' )
+		);
 	}
 	
 	public function print_plugin_settings_page() {
