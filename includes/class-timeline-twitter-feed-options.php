@@ -7,7 +7,7 @@ class Timeline_Twitter_Feed_Options {
 	const ADVANCED_OPTIONS   = 'ttf_advanced';
 	const OTHER_OPTIONS      = 'ttf_others';
 	const HELP               = 'ttf_help';
-	CONST APPROVED           = 'ttf_feed_approval';
+	const APPROVED           = 'ttf_feed_approval';
 	const OUTPUT             = 'ttf_feed_output';
 	const HASH_KEYS          = 'ttf_hash_keys';
 

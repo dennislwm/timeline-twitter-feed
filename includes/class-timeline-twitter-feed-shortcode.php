@@ -2,7 +2,7 @@
 
 if ( ! class_exists( 'TwitterWP' ) ) {
 	// Include Twitter API class
-	require_once( sprintf( '%s/lib/class-twitterwp.php', dirname( dirname( __FILE__ ) ) ) );
+	require dirname( dirname( __FILE__ ) ) . '/lib/class-twitterwp.php';
 }
 
 class Timeline_Twitter_Feed_Shortcode {
@@ -12,7 +12,7 @@ class Timeline_Twitter_Feed_Shortcode {
 
 	private $approved = array();
 	
-	function __construct() {
+	public function __construct() {
 		$this->basic_options    = get_option( Timeline_Twitter_Feed_Options::BASIC_OPTIONS );
 		$this->advanced_options = get_option( Timeline_Twitter_Feed_Options::ADVANCED_OPTIONS );
 		$this->other_options    = get_option( Timeline_Twitter_Feed_Options::OTHER_OPTIONS );
@@ -155,15 +155,15 @@ class Timeline_Twitter_Feed_Shortcode {
 
 		$output .= '<div class="ttf-tweet-row"><div class="ttf-tweet-text">';
 
-		$text = preg_replace( '/(http:\/\/)(.*?)\/([\w\.\/\&\=\?\-\,\:\;\#\_\~\%\+]*)/', '<a href="\\0" target="_blank" rel="nofollow">\\0</a>', $text );
+		$text = preg_replace( '/(http|https):\/\/([a-z0-9_\.\-\+\&\!\#\~\/\,]+)/i', '<a href="$1://$2" target="_blank" rel="nofollow">$1://$2</a>', $text );
 
 		if ( 'on' === $this->advanced_options[Timeline_Twitter_Feed_Options::USER_LINKS] ) {
-			$text = preg_replace( '(@([a-zA-Z0-9\_]+))', '<a href="https://twitter.com/intent/user?screen_name=\\1" target="_blank" rel="nofollow">\\0</a>', $text );
+			$text = preg_replace( '/@([A-Za-z0-9_]+)/is', '<a href="https://twitter.com/$1" target="_blank">@$1</a>', $text );
 		}
 		
 		if ( 'on' === $this->advanced_options[Timeline_Twitter_Feed_Options::HASH_LINKS] ) {
-			// @props aaronrossanocomau for fixing the regex
-			$text = preg_replace( '/(?<!&)#(\w+)/i', '<a href="http://twitter.com/search?q=%23\\1" target="_blank" rel="nofollow">\\0</a>', $text );
+			// @props aaronrossanocomau -> https://wordpress.org/support/topic/encoding-7
+			$text = preg_replace( '/(?<!&)#([A-Aa-z0-9_-]+)/is', '<a href="https://twitter.com/hashtag/$1?src=hash" target="_blank">#$1</a>', $text );
 		}
 
 		$output .= $text . '</div></div>';
@@ -251,32 +251,28 @@ class Timeline_Twitter_Feed_Shortcode {
 	}
 	
 	public function get_follow_button() {
-		$follower_count = 'on' === $this->advanced_options[Timeline_Twitter_Feed_Options::FOLLOWER_COUNT] ? 'true' : 'false';
-		$button_size    = 'on' === $this->advanced_options[Timeline_Twitter_Feed_Options::LARGE_BUTTON] ? 'large' : 'medium';
-		
+		$follower_count = ('on' === $this->advanced_options[Timeline_Twitter_Feed_Options::FOLLOWER_COUNT]) ? 'true' : 'false';
+		$button_size    = ('on' === $this->advanced_options[Timeline_Twitter_Feed_Options::LARGE_BUTTON]) ? 'large' : 'medium';
+
+		$username = $this->basic_options[Timeline_Twitter_Feed_Options::USERNAME];
+
 		return sprintf(
-			'<a href="https://twitter.com/%s" class="twitter-follow-button" data-lang="%s" data-show-count="%s" data-size="%s">Follow @%s</a>',
-			$this->basic_options[Timeline_Twitter_Feed_Options::USERNAME],
-			esc_attr( $this->advanced_options[Timeline_Twitter_Feed_Options::LANGUAGE] ),
-			esc_attr( $follower_count ),
-			esc_attr( $button_size ),
-			esc_html( $this->basic_options[Timeline_Twitter_Feed_Options::USERNAME] )
+			'<a href="%s" class="twitter-follow-button" data-show-count="%s" data-lang="%s" data-size="%s">Follow @%s</a>',
+			esc_url( 'https://twitter.com/' . $username ),
+			$follower_count,
+			$this->advanced_options[Timeline_Twitter_Feed_Options::LANGUAGE],
+			$button_size,
+			esc_html( $username )
 		);
 	}
 	
 	public function has_missing_keys_or_secrets() {
-		$basic_options = array(
+        return ( false !== array_search( '', array(
             $this->basic_options[Timeline_Twitter_Feed_Options::CONSUMER_KEY],
             $this->basic_options[Timeline_Twitter_Feed_Options::CONSUMER_SECRET],
             $this->basic_options[Timeline_Twitter_Feed_Options::ACCESS_TOKEN],
             $this->basic_options[Timeline_Twitter_Feed_Options::ACCESS_SECRET]
-        );
-
-        if ( false !== array_search( '', $basic_options ) ) {
-        	return true;
-        } else {
-        	return false;
-        }
+        ) ) );
 	}
 	
 	public function print_error_message() {
@@ -299,14 +295,12 @@ class Timeline_Twitter_Feed_Shortcode {
 	}
 
 	public function initiate_twitter_app() {
-		$app = array(
+		$twitter_app = TwitterWP::start( array(
 			'consumer_key'        => $this->basic_options[Timeline_Twitter_Feed_Options::CONSUMER_KEY],
 			'consumer_secret'     => $this->basic_options[Timeline_Twitter_Feed_Options::CONSUMER_SECRET],
 			'access_token'        => $this->basic_options[Timeline_Twitter_Feed_Options::ACCESS_TOKEN],
 			'access_token_secret' => $this->basic_options[Timeline_Twitter_Feed_Options::ACCESS_SECRET],
-		);
-		
-		$twitter_app = TwitterWP::start( $app );		
+		) );		
 		
 		if ( ! $twitter_app->user_exists( $this->basic_options[Timeline_Twitter_Feed_Options::USERNAME] ) ) {
 			return null; // user doesn't exist
@@ -325,29 +319,23 @@ class Timeline_Twitter_Feed_Shortcode {
 		if ( $result > 0 ) {
 			return true; // skip this tweet, it has bad words
 		}
+
+		return false;
 	}
 
 	public function is_retweet( $tweet ) {
-		if ( false !== strpos( $tweet->text, 'RT @' ) ) {
-			return true;
-		} else {
-			return false;
-		}
+		return ( false !== strpos( $tweet->text, 'RT ' ) );
 	}
 
 	public function is_username_tweet_with_hashtag( $tweet ) {
-		if ( $this->basic_options[Timeline_Twitter_Feed_Options::USERNAME] == $tweet->user->screen_name ) {
-			return true;
-		} else {
-			return false;
-		}
+		return ( $this->basic_options[Timeline_Twitter_Feed_Options::USERNAME] == $tweet->user->screen_name );
 	}
 
 	public function filter_unwanted_tweets( $tweets ) {
 		$count_tweets = count( $tweets );
 
 		$i = 0;
-		while( $i < $count_tweets ) {
+		while ( $i < $count_tweets ) {
 			if ( $this->has_blocked_words( $tweets[$i] ) ) {
 				array_splice( $tweets, $i , 1 );
 				$count_tweets--;
