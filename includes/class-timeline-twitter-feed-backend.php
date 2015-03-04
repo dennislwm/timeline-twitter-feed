@@ -198,55 +198,55 @@ class Timeline_Twitter_Feed_Backend {
 					) 
 				),
 				array(
-					'name' => Timeline_Twitter_Feed_Options::LARGE_BUTTON,
+					'name'  => Timeline_Twitter_Feed_Options::LARGE_BUTTON,
 					'label' => __( 'Large Twitter Button', Timeline_Twitter_Feed::TEXTDOMAIN ),
 					'desc'  => '',
 					'type'  => 'checkbox' 
 				),
 				array(
-					'name' => Timeline_Twitter_Feed_Options::FOLLOWER_COUNT,
+					'name'  => Timeline_Twitter_Feed_Options::FOLLOWER_COUNT,
 					'label' => __( 'Show Follower Count', Timeline_Twitter_Feed::TEXTDOMAIN ),
 					'desc'  => __( 'shows the number of followers by your @username for the follow button', Timeline_Twitter_Feed::TEXTDOMAIN ),
 					'type'  => 'checkbox' 
 				),
 				array(
-					'name' => Timeline_Twitter_Feed_Options::USER_LINKS,
+					'name'  => Timeline_Twitter_Feed_Options::USER_LINKS,
 					'label' => __( 'Link to @usernames', Timeline_Twitter_Feed::TEXTDOMAIN ),
 					'desc'  => __( 'inserts a link to any @username who is mentioned in a tweet', Timeline_Twitter_Feed::TEXTDOMAIN ),
 					'type'  => 'checkbox' 
 				),
 				array(
-					'name' => Timeline_Twitter_Feed_Options::HASH_LINKS,
+					'name'  => Timeline_Twitter_Feed_Options::HASH_LINKS,
 					'label' => __( 'Link to #hashtags', Timeline_Twitter_Feed::TEXTDOMAIN ),
 					'desc'  => __( 'inserts a link to any #hashtag that is mentioned in a tweet', Timeline_Twitter_Feed::TEXTDOMAIN ),
 					'type'  => 'checkbox' 
 				),
 				array(
-					'name' => Timeline_Twitter_Feed_Options::TIMESTAMP,
+					'name'  => Timeline_Twitter_Feed_Options::TIMESTAMP,
 					'label' => __( 'Show Timestamp', Timeline_Twitter_Feed::TEXTDOMAIN ),
 					'desc'  => __( 'whether you want the tweet to append xx minutes/hours/days ago from the tweet', Timeline_Twitter_Feed::TEXTDOMAIN ),
 					'type'  => 'checkbox' 
 				),
 				array(
-					'name' => Timeline_Twitter_Feed_Options::LINK_TO_TWEET,
+					'name'  => Timeline_Twitter_Feed_Options::LINK_TO_TWEET,
 					'label' => __( 'Link to Tweet', Timeline_Twitter_Feed::TEXTDOMAIN ),
 					'desc'  => __( 'this will turn the timestamp into a a link to the tweet', Timeline_Twitter_Feed::TEXTDOMAIN ),
 					'type'  => 'checkbox' 
 				),
 				array(
-					'name' => Timeline_Twitter_Feed_Options::USE_CSS,
+					'name'  => Timeline_Twitter_Feed_Options::USE_CSS,
 					'label' => __( 'Use CSS file', Timeline_Twitter_Feed::TEXTDOMAIN ),
 					'desc'  => __( 'disable this to use your own CSS file', Timeline_Twitter_Feed::TEXTDOMAIN ),
 					'type'  => 'checkbox' 
 				),
 				array(
-					'name' => Timeline_Twitter_Feed_Options::AUTH,
+					'name'  => Timeline_Twitter_Feed_Options::AUTH,
 					'label' => __( 'Show Username before Tweet', Timeline_Twitter_Feed::TEXTDOMAIN ),
-					'desc' => __( 'inserts @username: before each tweet, which links to that username', Timeline_Twitter_Feed::TEXTDOMAIN ),
-					'type' => 'checkbox' 
+					'desc'  => __( 'inserts @username: before each tweet, which links to that username', Timeline_Twitter_Feed::TEXTDOMAIN ),
+					'type'  => 'checkbox' 
 				),
 				array(
-					'name' => Timeline_Twitter_Feed_Options::ERROR_MESSAGE,
+					'name'  => Timeline_Twitter_Feed_Options::ERROR_MESSAGE,
 					'label' => __( 'Error Message', Timeline_Twitter_Feed::TEXTDOMAIN ),
 					'desc'  => __( 'error message to show if the twitter feed can\'t show tweets', Timeline_Twitter_Feed::TEXTDOMAIN ),
 					'type'  => 'text' 
@@ -339,10 +339,11 @@ class Timeline_Twitter_Feed_Backend {
 	}
 	
 	public function add_plugin_options_page() {
-		add_options_page( Timeline_Twitter_Feed::PLUGIN_NAME, Timeline_Twitter_Feed::PLUGIN_NAME, 'manage_options', Timeline_Twitter_Feed::TEXTDOMAIN, array(
-			 $this,
-			'print_plugin_settings_page' 
-		) );
+		add_options_page(
+			Timeline_Twitter_Feed::PLUGIN_NAME,
+			Timeline_Twitter_Feed::PLUGIN_NAME,
+			'manage_options',
+			Timeline_Twitter_Feed::TEXTDOMAIN, array( $this, 'print_plugin_settings_page' ) );
 	}
 	
 	public function print_plugin_settings_page() {
@@ -357,7 +358,12 @@ class Timeline_Twitter_Feed_Backend {
 	
 	public function print_missing_api_authentication_notice() {
 		if ( is_missing_api_authentication_keys() ) {
-			printf( '<div class="error"><p>%s <a href="options-general.php?page=%s#%s"><input type="submit" value="%s" class="button-secondary" style="vertical-align: baseline;" /></a></p></div>', __( 'You need to enter your Twitter API settings for the Timeline Twitter Feed plugin to work.', Timeline_Twitter_Feed::TEXTDOMAIN ), Timeline_Twitter_Feed::TEXTDOMAIN, Timeline_Twitter_Feed_Options::BASIC_OPTIONS, __( 'Configure', Timeline_Twitter_Feed::TEXTDOMAIN ) );
+			printf(
+				'<div class="error"><p>%s <a href="options-general.php?page=%s#%s"><input type="submit" value="%s" class="button-secondary" style="vertical-align: baseline;" /></a></p></div>',
+				__( 'You need to enter your Twitter API settings for the Timeline Twitter Feed plugin to work.', Timeline_Twitter_Feed::TEXTDOMAIN ),
+				Timeline_Twitter_Feed::TEXTDOMAIN, Timeline_Twitter_Feed_Options::BASIC_OPTIONS,
+				__( 'Configure', Timeline_Twitter_Feed::TEXTDOMAIN )
+			);
 		}
 	}
 	
