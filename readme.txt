@@ -27,6 +27,14 @@ If you don’t report it, I can’t fix it!
 1. Activate the plugin through the 'Plugins' menu in WordPress
 1. Configure Timeline Twitter Feed by going to the corresponding menu item under 'Settings'
 
+== Frequently Asked Questions ==
+
+= Why is the feed not showing tweets when "hashtags only" option is selected? =
+
+If you show tweets from hashtags, unwanted tweets will be filtered out.
+Unwanted teets are tweets that contain words from the "discard tweets" option, tweets that are retweets or tweets with hashtags from your own account.
+Try to set the "number of tweets to get in advance" to a higher number.
+
 == Screenshots ==
 
 1. Timeline Twitter Feed Settings Screen
