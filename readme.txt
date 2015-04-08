@@ -4,7 +4,7 @@ Donate link: http://bit.ly/1eC8iDE
 Tags: twitter, feed, tweet, tweets, twitter feed, twitter widget, twitter sidebar, social, social media
 Requires at least: 3.5
 Tested up to: 4.1
-Stable tag: 1.1
+Stable tag: 1.2
 License: GPL v3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -36,6 +36,13 @@ If you don’t report it, I can’t fix it!
 1. Approve hashtags tweets first before showing them on your site
 
 == Changelog ==
+
+= 1.2 =
+* Bugfixes:
+	* Fixed a nasty bug with some emoticons/smilies breaking the feed
+* Enhancements:
+	* Better handling of links, hashtags and usernames in tweets
+	* Better checking if tweet is a retweet
 
 = 1.1 =
 * Bugfixes:
