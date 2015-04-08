@@ -358,7 +358,7 @@ class Timeline_Twitter_Feed_Backend {
 	}
 	
 	public function print_missing_api_authentication_notice() {
-		if ( is_missing_api_authentication_keys() ) {
+		if ( $this->is_missing_api_authentication_keys() ) {
 			printf(
 				'<div class="error"><p>%s <a href="options-general.php?page=%s#%s"><input type="submit" value="%s" class="button-secondary" style="vertical-align: baseline;" /></a></p></div>',
 				__( 'You need to enter your Twitter API settings for the Timeline Twitter Feed plugin to work.', Timeline_Twitter_Feed::TEXTDOMAIN ),
