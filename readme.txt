@@ -15,9 +15,8 @@ Output timeline feeds and multiple hashtags into your WordPress site as flat HTM
 Timeline Twitter Feed let's you output your timeline feed and multiple hashtags into your WordPress site as flat HTML.
 The output is customizable on nearly every aspect. With or without profile pictures, tweet date, usernames before tweets, hashtags and usernames as links etc. etc.
 CSS styling can be added/overwrited via your theme's stylesheet or in the Timeline Twitter Feed settings screen.
-There is also a widget to easily add a Twitter feed to your header, sidebar or footer if your theme supports it.
+There is also a widget to easily add a Twitter feed to your header, sidebar or footer, if your theme supports it.
 
-Please keep in mind that Timeline Twitter Feed is still beta software.
 If you have any issues using Timeline Twitter Feed, find a bug or have an idea to make the plugin even better then please [help to improve Timeline Twitter Feed](https://github.com/ezraverheijen/timeline-twitter-feed).
 If you don’t report it, I can’t fix it!
 
