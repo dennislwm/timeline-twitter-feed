@@ -324,7 +324,7 @@ class Timeline_Twitter_Feed_Shortcode {
 	}
 
 	public function is_retweet( $tweet ) {
-		return ( false !== strpos( $tweet->text, 'RT ' ) );
+		return ( isset( $tweet->retweeted_status ) || false !== strpos( $tweet->text, 'RT @' ) );
 	}
 
 	public function is_username_tweet_with_hashtag( $tweet ) {
