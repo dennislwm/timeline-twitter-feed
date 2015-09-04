@@ -44,6 +44,10 @@ Try to set the "number of tweets to get in advance" to a higher number.
 
 == Changelog ==
 
+= 1.3 =
+* Enhancements:
+	* The profile image URL can now be filtered with `add_filter( 'ttf-profile-image', 'your_url_filter_function_here' );
+
 = 1.2 =
 * Bugfixes:
 	* Fixed a nasty bug with some emoticons/smilies breaking the feed
