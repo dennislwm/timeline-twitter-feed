@@ -77,7 +77,11 @@ class Timeline_Twitter_Feed_Shortcode {
 			$num_tweets = (int) $this->basic_options[Timeline_Twitter_Feed_Options::NUM_TWEETS];
 
 			$tweets = array();
-			if ( 'on' !== $this->advanced_options[Timeline_Twitter_Feed_Options::ONLY_HASHTAGS] ) {
+			if ( isset( $atts['username'] ) ) {
+				// @props apkoponen -> https://github.com/ezraverheijen/timeline-twitter-feed/pull/3
+                $tweets = $twitter_app->get_tweets( $atts['username'], $num_tweets );
+				$num_hashtag_tweets = $num_tweets;
+            } elseif ( 'on' !== $this->advanced_options[Timeline_Twitter_Feed_Options::ONLY_HASHTAGS] ) {
 				$tweets = $twitter_app->get_tweets( $this->basic_options[Timeline_Twitter_Feed_Options::USERNAME], $num_tweets );
 				$num_hashtag_tweets = $num_tweets;
 			} else {
