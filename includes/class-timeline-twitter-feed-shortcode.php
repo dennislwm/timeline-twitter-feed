@@ -188,6 +188,8 @@ class Timeline_Twitter_Feed_Shortcode {
 			$img = $tweet->user->profile_image_url;
 		}
 		
+		$img = apply_filters( 'ttf-profile-image', $img );
+		
 		return sprintf(
 			'<div class="ttf-tweet-image"><a href="https://twitter.com/intent/user?screen_name=%s" rel="nofollow"><img alt="%s" src="%s" height="48" width="48" title="%s"></a></div>',
 			$tweet->user->screen_name,
