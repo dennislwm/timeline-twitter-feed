@@ -46,7 +46,7 @@ Try to set the "number of tweets to get in advance" to a higher number.
 
 = 1.3 =
 * Enhancements:
-	* The profile image URL can now be filtered with `add_filter( 'ttf-profile-image', 'your_url_filter_function_here' );
+	* The profile image URL can now be filtered with `add_filter( 'ttf-profile-image', 'your_url_filter_function_here' );`
 	* Added support for username attribute (for now only via shortcode, not via the widget)
 
 = 1.2 =
