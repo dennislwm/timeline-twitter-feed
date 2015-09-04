@@ -4,7 +4,7 @@ Donate link: http://bit.ly/1eC8iDE
 Tags: twitter, feed, tweet, tweets, twitter feed, twitter widget, twitter sidebar, social, social media
 Requires at least: 3.5
 Tested up to: 4.1
-Stable tag: 1.2
+Stable tag: 1.3
 License: GPL v3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -47,7 +47,7 @@ Try to set the "number of tweets to get in advance" to a higher number.
 = 1.3 =
 * Enhancements:
 	* The profile image URL can now be filtered with `add_filter( 'ttf-profile-image', 'your_url_filter_function_here' );
-	* added support for username attribute (for now only via shortcode, not via the widget)
+	* Added support for username attribute (for now only via shortcode, not via the widget)
 
 = 1.2 =
 * Bugfixes:
